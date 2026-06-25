@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Citizenship Portal - Animo Homeroom</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for standard UI icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        .green-gradient {
+            background: linear-gradient(135deg, #1e5c3f 0%, #0c8254 100%);
+        }
+        .spark-shine {
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.6);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-white border-b border-slate-100 px-6 py-4 flex flex-wrap items-center justify-between sticky top-0 z-30 shadow-sm">
+        <div class="flex items-center space-x-3 mb-2 md:mb-0">
+            <!-- Logo Icon -->
+            <div class="w-10 h-10 rounded-xl bg-[#055a3a] flex items-center justify-center text-white shadow-md">
+                <i class="fa-solid fa-laptop-code text-lg"></i>
+            </div>
+            <div>
+                <div class="flex items-center space-x-2">
+                    <span class="text-xs font-bold tracking-wider text-[#055a3a] uppercase">Animo Homeroom</span>
+                </div>
+                <h1 class="text-lg md:text-xl font-bold text-slate-900 tracking-tight">Digital Citizenship Course Hub</h1>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-3">
+            <button onclick="openEmbedModal()" class="flex items-center space-x-2 px-3.5 py-1.5 text-xs font-semibold text-[#055a3a] border border-[#055a3a]/30 hover:bg-emerald-50 rounded-lg transition-all">
+                <i class="fa-solid fa-code"></i>
+                <span>Canvas Embed Code</span>
+            </button>
+            <button onclick="toggleSettingsModal()" class="flex items-center space-x-2 px-3.5 py-1.5 text-xs font-semibold text-[#055a3a] border border-emerald-100 hover:bg-emerald-50 rounded-lg transition-all">
+                <i class="fa-solid fa-gears"></i>
+                <span>Portal Settings</span>
+            </button>
+            <div class="h-8 w-[1px] bg-slate-200"></div>
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 rounded-full bg-emerald-100 text-[#055a3a] flex items-center justify-center font-bold text-sm">
+                    DC
+                </div>
+                <div class="hidden sm:block text-left leading-none">
+                    <p class="text-xs font-semibold text-slate-800">Ms. Winnie Y. Diola</p>
+                    <span class="text-[10px] text-slate-400">AY 2026 - 2027</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 flex-col lg:flex-row relative">
+        <!-- Sidebar Navigation -->
+        <aside class="w-full lg:w-64 bg-white lg:border-r border-slate-100 p-5 flex flex-col justify-between shrink-0">
+            <div class="space-y-6">
+                <div>
+                    <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase text-xs">Course Navigation</span>
+                    <nav class="mt-3 space-y-1.5">
+                        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold bg-[#e6f4ea] text-[#055a3a] transition-all">
+                            <i class="fa-solid fa-house w-4 text-center"></i>
+                            <span>Course Dashboard</span>
+                        </button>
+                        <button onclick="switchTab('announcements')" id="nav-announcements" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-bullhorn w-4 text-center"></i>
+                            <span>1. Announcements</span>
+                        </button>
+                        <button onclick="switchTab('modules')" id="nav-modules" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-folder-open w-4 text-center"></i>
+                            <span>2. Modules</span>
+                        </button>
+                        <button onclick="switchTab('assessments')" id="nav-assessments" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-pen-to-square w-4 text-center"></i>
+                            <span>3. Assessments</span>
+                        </button>
+                        <button onclick="switchTab('discussions')" id="nav-discussions" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-comments w-4 text-center"></i>
+                            <span>4. Discussions</span>
+                        </button>
+                        <button onclick="switchTab('outlines')" id="nav-outlines" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-book-open w-4 text-center"></i>
+                            <span>5. Course Outlines</span>
+                        </button>
+                        <button onclick="switchTab('schedule')" id="nav-schedule" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-calendar-alt w-4 text-center"></i>
+                            <span>6. Online Schedule</span>
+                        </button>
+                        <button onclick="switchTab('gmeet')" id="nav-gmeet" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-video w-4 text-center text-emerald-600"></i>
+                            <span>7. Google Meet Room</span>
+                        </button>
+                        <button onclick="switchTab('photos')" id="nav-photos" class="nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all">
+                            <i class="fa-solid fa-camera w-4 text-center"></i>
+                            <span>8. Activity Photos</span>
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- Class Details -->
+                <div class="border-t border-slate-100 pt-5">
+                    <span class="text-[10px] font-bold text-slate-400 tracking-widest uppercase">Course Metadata</span>
+                    <div class="mt-3 space-y-2.5 text-xs text-slate-600">
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Instructor:</span>
+                            <span class="font-bold text-slate-800">Ms. Winnie Y. Diola</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-400">Grade Level:</span>
+                            <span class="font-bold text-slate-800">Grades 1-6 & BRafeNHS</span>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-50">
+                            <span class="text-[10px] font-bold text-[#055a3a] uppercase block tracking-wider">Motto & Vision</span>
+                            <span class="italic text-[11px] text-emerald-800 mt-1 block">"Be a SPARK, take the LEAD"</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Meta -->
+            <div class="text-[10px] text-slate-400 mt-8 pt-4 border-t border-slate-100">
+                <p>&copy; 2027 Animo Homeroom</p>
+                <p class="mt-1">Digital Citizenship Hub</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+            
+            <!-- VIEW: HUB DASHBOARD -->
+            <div id="view-dashboard" class="view-panel space-y-8">
+                <!-- Custom Green Hero Banner from Image asset matching characters style -->
+                <div class="green-gradient rounded-3xl p-6 sm:p-8 text-white relative overflow-hidden shadow-lg shadow-emerald-950/20">
+                    <!-- Starburst / cute vectors -->
+                    <div class="absolute right-6 top-6 text-yellow-300 spark-shine text-3xl animate-bounce">
+                        <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="absolute left-1/3 bottom-2 text-emerald-400/20 text-7xl font-black">
+                        AY 2026-2027
+                    </div>
+                    
+                    <div class="relative z-10 max-w-3xl flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="space-y-3 text-center md:text-left">
+                            <span class="bg-[#155a3b] border border-emerald-400/40 text-[10px] font-bold tracking-widest uppercase px-3 py-1 rounded-full text-emerald-200 inline-block">
+                                Welcome to AY 2026-2027
+                            </span>
+                            <h2 class="text-3xl sm:text-4.5xl font-extrabold tracking-tight leading-tight">
+                                Be a <span class="text-amber-300 spark-shine font-black">SPARK</span>, Take the <span class="underline decoration-yellow-400 decoration-wavy">LEAD</span>.
+                            </h2>
+                            <p class="text-xs sm:text-sm text-emerald-100/90 font-normal leading-relaxed max-w-xl">
+                                Welcome to your central command center for **Digital Citizenship**. Use the interactive buttons below to track assignments, schedules, discussions, and download weekly lesson guides.
+                            </p>
+                        </div>
+                        
+                        <!-- Illustration Placeholder / Cute Mascot Box -->
+                        <div class="w-32 h-32 bg-white/10 backdrop-blur-md border border-white/20 rounded-2xl p-4 flex flex-col items-center justify-center text-center shrink-0">
+                            <div class="text-3xl">🧑‍💻👩‍💻</div>
+                            <span class="text-[10px] uppercase font-bold text-emerald-200 mt-2 tracking-wider">Be Safe Online</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 8 CIRCULAR NAV BUTTONS SECTION -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-2 pb-1 border-b border-slate-100">
+                        <i class="fa-solid fa-circle-nodes text-[#055a3a] text-sm"></i>
+                        <h3 class="text-xs font-bold text-slate-500 tracking-wider uppercase">Class Navigation Hub</h3>
+                    </div>
+
+                    <!-- Grid layout of the 8 circular buttons from image 2 -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 pt-2">
+                        <!-- 1. Announcements -->
+                        <button onclick="switchTab('announcements')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-bullhorn text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Announcements</span>
+                        </button>
+
+                        <!-- 2. Modules -->
+                        <button onclick="switchTab('modules')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-box text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Modules</span>
+                        </button>
+
+                        <!-- 3. Assessments -->
+                        <button onclick="switchTab('assessments')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-pen-ruler text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Assessments</span>
+                        </button>
+
+                        <!-- 4. Discussions -->
+                        <button onclick="switchTab('discussions')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-comments text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Discussions</span>
+                        </button>
+
+                        <!-- 5. Course Outlines -->
+                        <button onclick="switchTab('outlines')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-book-bookmark text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Course Outlines</span>
+                        </button>
+
+                        <!-- 6. Online Class Schedule -->
+                        <button onclick="switchTab('schedule')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-clock-rotate-left text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Class Schedule</span>
+                        </button>
+
+                        <!-- 7. Google Meet -->
+                        <button onclick="switchTab('gmeet')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-amber-500 hover:bg-amber-600 text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-amber-100">
+                                <i class="fa-solid fa-video text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Google Meet</span>
+                        </button>
+
+                        <!-- 8. Class Activity Photos -->
+                        <button onclick="switchTab('photos')" class="group flex flex-col items-center text-center space-y-2.5">
+                            <div class="w-20 h-20 rounded-full bg-[#1a5a3a] hover:bg-[#206f47] text-white flex items-center justify-center shadow-md transition-all duration-300 transform group-hover:scale-110 ring-4 ring-emerald-100">
+                                <i class="fa-solid fa-camera-retro text-2xl"></i>
+                            </div>
+                            <span class="text-[10.5px] font-bold text-slate-700 tracking-tight leading-tight group-hover:text-[#055a3a] uppercase">Activity Photos</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Learning Progress Highlights / Info Widgets -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                    <!-- Progress Card -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Course Progression</h4>
+                            <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">Term 1</span>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-xs">
+                                <span class="font-bold text-slate-700">Digital Footprint Awareness</span>
+                                <span class="text-slate-400">75% Completed</span>
+                            </div>
+                            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                                <div class="bg-emerald-600 h-full rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Teacher Contact / Advisory Info -->
+                    <div class="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm flex flex-col justify-between">
+                        <div class="flex justify-between items-center">
+                            <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Teacher Consultation</h4>
+                            <span class="text-[10px] text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded-full">Available</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Have concerns about digital privacy or your online safety portfolio? Send a direct email to <strong>Ms. Winnie Y. Diola</strong> or schedule a consultation hour.</p>
+                        <div class="mt-4 flex space-x-2">
+                            <a href="mailto:w.diola@animo.edu" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-bold rounded-xl flex items-center space-x-2 transition-all">
+                                <i class="fa-solid fa-envelope"></i>
+                                <span>Email Instructor</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: ANNOUNCEMENTS -->
+            <div id="view-announcements" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-pink-600 bg-pink-50 px-2.5 py-1 rounded-full">Course Announcements</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Latest Course Bulletins</h2>
+                        <p class="text-xs text-slate-500 mt-1">Class wide reminders, upcoming assignment targets, and resources.</p>
+                    </div>
+                    <button onclick="openAddAnnouncementModal()" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-semibold rounded-xl flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <span>Add Announcement</span>
+                    </button>
+                </div>
+
+                <div class="space-y-4" id="announcements-container">
+                    <!-- Loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- VIEW: MODULES -->
+            <div id="view-modules" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Syllabus Path</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Learning Modules</h2>
+                        <p class="text-xs text-slate-500 mt-1">Access detailed unit material, presentation links, and self-checks.</p>
+                    </div>
+                    <button onclick="addCourseUnit()" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-semibold rounded-xl flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <span>Add Module Unit</span>
+                    </button>
+                </div>
+
+                <!-- Interactive Course Units Progression Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="modules-container">
+                    <!-- Dynamic units load -->
+                </div>
+            </div>
+
+            <!-- VIEW: ASSESSMENTS -->
+            <div id="view-assessments" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-amber-600 bg-amber-50 px-2.5 py-1 rounded-full">Task Log</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Assessments Tracker</h2>
+                        <p class="text-xs text-slate-500 mt-1">Review upcoming deadlines, quiz submissions, and active grades.</p>
+                    </div>
+                    <button onclick="openAddAssessmentModal()" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-semibold rounded-xl flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                        <span>New Graded Task</span>
+                    </button>
+                </div>
+
+                <!-- Assessments Registry list -->
+                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+                    <table class="w-full text-left text-xs border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-slate-100 text-slate-500 font-bold uppercase tracking-wider">
+                                <th class="p-4">Assessment Name</th>
+                                <th class="p-4">Type</th>
+                                <th class="p-4">Due Date</th>
+                                <th class="p-4">Weight</th>
+                                <th class="p-4">Status</th>
+                                <th class="p-4 text-right">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assessments-table-rows" class="divide-y divide-slate-100">
+                            <!-- Loaded via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- VIEW: DISCUSSIONS -->
+            <div id="view-discussions" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">Netiquette Board</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Interactive Class Discussions</h2>
+                        <p class="text-xs text-slate-500 mt-1">Share thoughts, ask questions, and engage on digital citizenship topics.</p>
+                    </div>
+                </div>
+
+                <!-- Simple Mock Forum Creator -->
+                <div class="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm space-y-4">
+                    <h3 class="text-sm font-bold text-slate-800">Add to the Conversation</h3>
+                    <form onsubmit="postDiscussion(event)" class="space-y-3">
+                        <input type="text" id="forum-author" required placeholder="Your Name" class="w-full border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-1 focus:ring-emerald-600">
+                        <textarea id="forum-content" required rows="3" placeholder="Share an article, thought, or digital footprint insight..." class="w-full border border-slate-200 rounded-xl p-2.5 text-xs focus:ring-1 focus:ring-emerald-600"></textarea>
+                        <button type="submit" class="px-5 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-semibold rounded-xl transition-all">
+                            Post to Forum
+                        </button>
+                    </form>
+                </div>
+
+                <div class="space-y-4" id="discussions-container">
+                    <!-- Dynamic Forum Feed -->
+                </div>
+            </div>
+
+            <!-- VIEW: COURSE OUTLINES -->
+            <div id="view-outlines" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-full">Syllabus Outline</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Course Syllabus & Schedule Roadmap</h2>
+                        <p class="text-xs text-slate-500 mt-1">Official learning objectives and lesson blueprints.</p>
+                    </div>
+                </div>
+
+                <!-- Structured Accordion Outline Content -->
+                <div class="space-y-4 max-w-4xl" id="outlines-accordion">
+                    <!-- Loaded dynamically via JS -->
+                </div>
+            </div>
+
+            <!-- VIEW: ONLINE CLASS SCHEDULE -->
+            <div id="view-schedule" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-purple-600 bg-purple-50 px-2.5 py-1 rounded-full">Calendar Logs</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Classroom Schedule Planner</h2>
+                        <p class="text-xs text-slate-500 mt-1">Track synchronous lectures, asynchronous tasks, and milestone check-ins.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <div class="lg:col-span-2 bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
+                        <!-- Simulated Calendar Grid -->
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-sm font-extrabold text-slate-800">June 2026</h3>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2 text-center text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
+                            <span>S</span><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span>
+                        </div>
+                        <div class="grid grid-cols-7 gap-2" id="scheduler-days-grid">
+                            <!-- Loaded via JS -->
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm space-y-4">
+                        <h4 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Weekly Lesson Agenda</h4>
+                        <div class="space-y-3" id="scheduler-checklist">
+                            <!-- Agenda list -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: GOOGLE MEET ROOM -->
+            <div id="view-gmeet" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">Video Sync Room</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Google Meet Virtual Doorway</h2>
+                        <p class="text-xs text-slate-500 mt-1">Access video consultations and online sync meet links directly.</p>
+                    </div>
+                </div>
+
+                <!-- Launch Box -->
+                <div class="max-w-xl mx-auto bg-white rounded-3xl p-8 border border-slate-100 shadow-sm text-center space-y-6">
+                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-3xl mx-auto">
+                        <i class="fa-solid fa-video"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <h3 class="text-lg font-bold text-slate-800">Launch Sync Session</h3>
+                        <p class="text-xs text-slate-500">Scheduled for Mondays & Wednesdays 10:00 AM. Click the button below to knock and join the virtual lobby.</p>
+                    </div>
+                    <div class="pt-4">
+                        <a href="https://meet.google.com" target="_blank" class="px-6 py-3 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-bold rounded-xl inline-flex items-center space-x-2 shadow-lg shadow-emerald-950/10 transition-all">
+                            <span>Enter Google Meet Lobby</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW: CLASS PHOTOS -->
+            <div id="view-photos" class="view-panel hidden space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-slate-100 pb-4 gap-4">
+                    <div>
+                        <span class="text-xs font-bold text-teal-600 bg-teal-50 px-2.5 py-1 rounded-full">Advisory Memories</span>
+                        <h2 class="text-xl font-bold mt-2 text-slate-900">Classroom Snapshot Gallery</h2>
+                        <p class="text-xs text-slate-500 mt-1">Explore, upload, and save snapshots of collaborative class projects.</p>
+                    </div>
+                    <button onclick="triggerPhotoUpload()" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white text-xs font-semibold rounded-xl flex items-center space-x-2 transition-all">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Photo Pin</span>
+                    </button>
+                </div>
+
+                <!-- Interactive Snapshots Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6" id="photos-grid">
+                    <!-- Photo cards loaded dynamically -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: CANVAS EMBED CODE -->
+    <div id="embed-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-lg rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+                <div class="flex items-center space-x-2 text-[#055a3a]">
+                    <i class="fa-solid fa-code"></i>
+                    <h3 class="font-extrabold text-slate-900">Canvas LMS Integration</h3>
+                </div>
+                <button onclick="closeEmbedModal()" class="p-1 text-slate-400 hover:text-slate-600 rounded-lg">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+            <div class="p-6 space-y-4 text-xs">
+                <p class="text-slate-500 leading-relaxed">
+                    To embed this interactive portal directly inside your Canvas Page or Course Homepage as an interactive hub, switch to Canvas's **HTML Editor** on any page and paste the code below:
+                </p>
+                <div class="bg-slate-900 text-slate-100 rounded-xl p-3 relative font-mono text-[10px]">
+                    <textarea readonly id="embed-code-box" class="w-full bg-transparent border-none resize-none focus:outline-none text-emerald-400 h-28" style="font-family: monospace;"></textarea>
+                    <button onclick="copyEmbedCode()" class="absolute right-3 top-3 bg-emerald-700 hover:bg-emerald-600 text-white rounded px-2 py-1 flex items-center space-x-1 font-sans text-[10px] font-semibold transition-all">
+                        <i class="fa-solid fa-copy"></i>
+                        <span>Copy Code</span>
+                    </button>
+                </div>
+                <div class="flex justify-end pt-2">
+                    <button onclick="closeEmbedModal()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold rounded-xl">
+                        Done
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD ANNOUNCEMENT -->
+    <div id="add-announcement-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-[#055a3a] text-white">
+                <h3 class="font-bold text-sm">Post New Course Reminder</h3>
+                <button onclick="closeAddAnnouncementModal()" class="p-1 hover:bg-[#044c31] rounded-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="handleAddAnnouncement(event)" class="p-5 space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Category Badge</label>
+                    <select id="new-ann-badge" class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                        <option value="Orientation">Orientation</option>
+                        <option value="Course Outlines">Course Outlines</option>
+                        <option value="Schedule Change">Schedule Change</option>
+                        <option value="Urgent Reminders">Urgent Reminders</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Announcement Title</label>
+                    <input type="text" id="new-ann-title" required placeholder="e.g., Mid-Term Examination Requirements" class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Content / Details</label>
+                    <textarea id="new-ann-content" required rows="3" placeholder="Paste detailed reminders or instructions here..." class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3">
+                    <button type="button" onclick="closeAddAnnouncementModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 rounded-xl font-semibold text-slate-600">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white rounded-xl font-bold">Post Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD ASSESSMENT -->
+    <div id="add-assessment-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-[#055a3a] text-white">
+                <h3 class="font-bold text-sm">Add New Graded Assessment</h3>
+                <button onclick="closeAddAssessmentModal()" class="p-1 hover:bg-[#044c31] rounded-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <form onsubmit="handleAddAssessment(event)" class="p-5 space-y-4 text-xs">
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Task Name</label>
+                    <input type="text" id="new-ass-name" required placeholder="e.g., Module 2 Privacy Checklist" class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Type</label>
+                    <select id="new-ass-type" class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                        <option value="Online Quiz">Online Quiz</option>
+                        <option value="Written Activity">Written Activity</option>
+                        <option value="Interactive Discussion">Interactive Discussion</option>
+                        <option value="Final Project">Final Project</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Due Date</label>
+                    <input type="date" id="new-ass-due" required class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                </div>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Grade Weight (%)</label>
+                    <input type="number" id="new-ass-weight" required min="1" max="100" placeholder="e.g., 20" class="w-full border border-slate-200 rounded-xl p-2.5 focus:ring-1 focus:ring-emerald-600">
+                </div>
+                <div class="flex justify-end space-x-2 pt-3">
+                    <button type="button" onclick="closeAddAssessmentModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 rounded-xl font-semibold text-slate-600">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white rounded-xl font-bold">Save Assessment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: PORTAL SETTINGS -->
+    <div id="settings-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center p-4 z-50">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-xl overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div class="p-5 border-b border-slate-100 flex justify-between items-center bg-[#055a3a] text-white">
+                <h3 class="font-bold text-sm">Course Link Customizer</h3>
+                <button onclick="toggleSettingsModal()" class="p-1 hover:bg-[#044c31] rounded-lg">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-5 space-y-4 text-xs">
+                <p class="text-slate-500 leading-relaxed">
+                    Personalize your active Canvas Course links and files. Change consultation room links below:
+                </p>
+                <div>
+                    <label class="block font-bold text-slate-600 mb-1">Google Meet Room Link</label>
+                    <input type="url" id="settings-gmeet-link" placeholder="https://meet.google.com/..." class="w-full border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-1 focus:ring-emerald-600">
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button onclick="toggleSettingsModal()" class="px-4 py-2 border border-slate-200 hover:bg-slate-50 rounded-xl font-semibold text-slate-600">Cancel</button>
+                    <button onclick="saveSettings()" class="px-4 py-2 bg-[#055a3a] hover:bg-[#044c31] text-white rounded-xl font-bold">Apply Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 space-y-2 z-50"></div>
+
+    <script>
+        // Core Mock Data Store (stored in Memory + LocalStorage fallback)
+        let announcements = [
+            { id: 1, date: "June 24, 2026", badge: "Orientation", title: "Digital Security Unit Launch", content: "Our core orientation begins Monday! Please download and review Module 1: Safe Footprints and Online Privacy guidelines before the synchronous session.", isPinned: true },
+            { id: 2, date: "June 22, 2026", badge: "Course Outlines", title: "Term 1 Syllabus Syllabus Released", content: "The permanent schedule of modules, discussions, and major interactive assessments has been plotted. Make sure to download the outlines file.", isPinned: false }
+        ];
+
+        let courseUnits = [
+            { id: 1, name: "Unit 1: Digital Footprint & Reputation", desc: "Understanding the permanent nature of data online and protecting personal privacy trails.", status: "Active Progression", count: "3 lessons" },
+            { id: 2, name: "Unit 2: Online Safety & Ethical Netiquette", desc: "Interactive framework exploring cyberbullying containment, media respect, and reporting guidelines.", status: "Upcoming Module", count: "4 lessons" }
+        ];
+
+        let assessments = [
+            { id: 1, name: "Introductory Quiz: Basic Terms", type: "Online Quiz", due: "2026-06-28", weight: "15%", status: "Open" },
+            { id: 2, name: "Interactive Discussion Board Post", type: "Interactive Discussion", due: "2026-07-02", weight: "10%", status: "Pending" }
+        ];
+
+        let discussions = [
+            { id: 1, author: "Sofia Valenzuela", date: "June 25, 2026", content: "I read an article saying recruiters look at candidate digital footprints. It's crazy that posts we make now can affect us years down the line!" }
+        ];
+
+        let courseOutlines = [
+            { title: "Week 1: Foundations of Digital Citizenship", desc: "Key terms and digital literacy theories including intellectual property and online netiquette." },
+            { title: "Week 2: Securing Your Digital Identity", desc: "Practical workshops regarding credential security, two-factor authentication, and safe network habits." }
+        ];
+
+        let calendarEvents = [
+            { date: "2026-06-25", title: "Intro Sync Meet", type: "academic" },
+            { date: "2026-06-29", title: "Module 1 Review", type: "general" }
+        ];
+
+        let classPhotos = [
+            { title: "Class Project: Privacy Posters", date: "June 20, 2026", placeholderColor: "bg-emerald-600" },
+            { title: "Group Consultation Session", date: "June 22, 2026", placeholderColor: "bg-[#155a3b]" }
+        ];
+
+        // On Load initialization
+        window.onload = function() {
+            loadFromLocalStorage();
+            renderAllViews();
+            updateEmbedSnippet();
+        };
+
+        function showToast(message, type = "success") {
+            const container = document.getElementById("toast-container");
+            const toast = document.createElement("div");
+            toast.className = `p-3.5 rounded-xl shadow-lg text-xs font-bold text-white transition-all duration-300 transform translate-y-2 flex items-center space-x-2 ${
+                type === "success" ? "bg-emerald-600" : "bg-red-600"
+            }`;
+            toast.innerHTML = `<i class="fa-solid ${type === "success" ? "fa-circle-check" : "fa-circle-exclamation"}"></i> <span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove("translate-y-2");
+                toast.classList.add("translate-y-0", "opacity-0");
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        function loadFromLocalStorage() {
+            if(localStorage.getItem("dc_announcements")) announcements = JSON.parse(localStorage.getItem("dc_announcements"));
+            if(localStorage.getItem("dc_course_units")) courseUnits = JSON.parse(localStorage.getItem("dc_course_units"));
+            if(localStorage.getItem("dc_assessments")) assessments = JSON.parse(localStorage.getItem("dc_assessments"));
+            if(localStorage.getItem("dc_discussions")) discussions = JSON.parse(localStorage.getItem("dc_discussions"));
+            if(localStorage.getItem("dc_outlines")) courseOutlines = JSON.parse(localStorage.getItem("dc_outlines"));
+            if(localStorage.getItem("dc_photos")) classPhotos = JSON.parse(localStorage.getItem("dc_photos"));
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem("dc_announcements", JSON.stringify(announcements));
+            localStorage.setItem("dc_course_units", JSON.stringify(courseUnits));
+            localStorage.setItem("dc_assessments", JSON.stringify(assessments));
+            localStorage.setItem("dc_discussions", JSON.stringify(discussions));
+            localStorage.setItem("dc_outlines", JSON.stringify(courseOutlines));
+            localStorage.setItem("dc_photos", JSON.stringify(classPhotos));
+        }
+
+        function renderAllViews() {
+            renderAnnouncements();
+            renderModules();
+            renderAssessments();
+            renderDiscussions();
+            renderOutlines();
+            renderSchedule();
+            renderPhotos();
+        }
+
+        // NAVIGATION
+        function switchTab(tabId) {
+            document.querySelectorAll(".view-panel").forEach(panel => panel.classList.add("hidden"));
+            const targetPanel = document.getElementById(`view-${tabId}`);
+            if(targetPanel) targetPanel.classList.remove("hidden");
+            
+            document.querySelectorAll(".nav-btn").forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-50 transition-all";
+            });
+            const activeBtn = document.getElementById(`nav-${tabId}`);
+            if(activeBtn) {
+                activeBtn.className = "nav-btn w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold bg-[#e6f4ea] text-[#055a3a] transition-all";
+            }
+        }
+
+        // 1. ANNOUNCEMENTS MODULE
+        function renderAnnouncements() {
+            const container = document.getElementById("announcements-container");
+            container.innerHTML = "";
+            announcements.forEach((ann, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white p-5 rounded-2xl border border-slate-100 shadow-sm relative";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center space-x-2">
+                            <span class="bg-pink-50 text-pink-600 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase">${ann.badge}</span>
+                            <span class="text-[10px] text-slate-400 font-semibold">${ann.date}</span>
+                        </div>
+                        <button onclick="deleteAnnouncement(${index})" class="text-slate-300 hover:text-red-500 transition-all">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                    <h3 class="text-sm font-bold text-slate-800">${ann.title}</h3>
+                    <p class="text-xs text-slate-500 mt-2 leading-relaxed">${ann.content}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function openAddAnnouncementModal() {
+            document.getElementById("add-announcement-modal").classList.remove("hidden");
+        }
+
+        function closeAddAnnouncementModal() {
+            document.getElementById("add-announcement-modal").classList.add("hidden");
+        }
+
+        function handleAddAnnouncement(e) {
+            e.preventDefault();
+            const badge = document.getElementById("new-ann-badge").value;
+            const title = document.getElementById("new-ann-title").value;
+            const content = document.getElementById("new-ann-content").value;
+            announcements.unshift({ id: Date.now(), date: "June 25, 2026", badge, title, content });
+            saveToLocalStorage();
+            renderAnnouncements();
+            closeAddAnnouncementModal();
+            showToast("New Course bulletin successfully broadcasted.");
+            e.target.reset();
+        }
+
+        function deleteAnnouncement(index) {
+            announcements.splice(index, 1);
+            saveToLocalStorage();
+            renderAnnouncements();
+            showToast("Announcement deleted.", "info");
+        }
+
+        // 2. MODULES
+        function renderModules() {
+            const container = document.getElementById("modules-container");
+            container.innerHTML = "";
+            courseUnits.forEach((unit, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between space-y-4 hover:border-emerald-200 transition-all";
+                card.innerHTML = `
+                    <div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-[10px] text-emerald-600 bg-emerald-50 font-bold px-2.5 py-0.5 rounded-full uppercase">${unit.status}</span>
+                            <span class="text-[10px] text-slate-400">${unit.count}</span>
+                        </div>
+                        <h4 class="text-sm font-extrabold text-slate-800 mt-3">${unit.name}</h4>
+                        <p class="text-xs text-slate-500 mt-2 leading-relaxed">${unit.desc}</p>
+                    </div>
+                    <div class="flex justify-between items-center border-t border-slate-50 pt-3">
+                        <button onclick="downloadUnit(${index})" class="text-xs font-bold text-[#055a3a] hover:underline flex items-center space-x-1">
+                            <i class="fa-solid fa-cloud-arrow-down text-[10px]"></i>
+                            <span>Download Guides</span>
+                        </button>
+                        <button onclick="deleteModule(${index})" class="text-slate-300 hover:text-red-500">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function addCourseUnit() {
+            const name = prompt("Enter Module Title:");
+            if(!name) return;
+            const desc = prompt("Enter Brief Outline Description:");
+            courseUnits.push({ id: Date.now(), name, desc: desc || "General materials", status: "Active", count: "3 lessons" });
+            saveToLocalStorage();
+            renderModules();
+            showToast("Module unit successfully published.");
+        }
+
+        function downloadUnit(idx) {
+            showToast(`Generating course assets for: ${courseUnits[idx].name}`);
+        }
+
+        function deleteModule(index) {
+            courseUnits.splice(index, 1);
+            saveToLocalStorage();
+            renderModules();
+            showToast("Module deleted.", "info");
+        }
+
+        // 3. ASSESSMENTS
+        function renderAssessments() {
+            const tbody = document.getElementById("assessments-table-rows");
+            tbody.innerHTML = "";
+            assessments.forEach((ass, index) => {
+                const tr = document.createElement("tr");
+                tr.className = "hover:bg-slate-50 transition-all";
+                tr.innerHTML = `
+                    <td class="p-4 font-semibold text-slate-800">${ass.name}</td>
+                    <td class="p-4 text-slate-500">${ass.type}</td>
+                    <td class="p-4 text-slate-400 font-mono">${ass.due}</td>
+                    <td class="p-4 font-bold text-slate-700">${ass.weight}</td>
+                    <td class="p-4">
+                        <span class="text-[10px] font-bold uppercase text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full">${ass.status}</span>
+                    </td>
+                    <td class="p-4 text-right">
+                        <button onclick="deleteAssessment(${index})" class="text-slate-300 hover:text-red-500 transition-all">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openAddAssessmentModal() {
+            document.getElementById("add-assessment-modal").classList.remove("hidden");
+        }
+
+        function closeAddAssessmentModal() {
+            document.getElementById("add-assessment-modal").classList.add("hidden");
+        }
+
+        function handleAddAssessment(e) {
+            e.preventDefault();
+            const name = document.getElementById("new-ass-name").value;
+            const type = document.getElementById("new-ass-type").value;
+            const due = document.getElementById("new-ass-due").value;
+            const weight = document.getElementById("new-ass-weight").value + "%";
+
+            assessments.unshift({ id: Date.now(), name, type, due, weight, status: "Open" });
+            saveToLocalStorage();
+            renderAssessments();
+            closeAddAssessmentModal();
+            showToast("Graded Assessment added to Canvas track.");
+            e.target.reset();
+        }
+
+        function deleteAssessment(index) {
+            assessments.splice(index, 1);
+            saveToLocalStorage();
+            renderAssessments();
+            showToast("Assessment target removed.", "info");
+        }
+
+        // 4. DISCUSSIONS
+        function renderDiscussions() {
+            const container = document.getElementById("discussions-container");
+            container.innerHTML = "";
+            discussions.forEach((post, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white p-5 rounded-2xl border border-slate-100 shadow-sm space-y-3 relative";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-[#055a3a] font-bold text-xs uppercase">
+                                ${post.author[0]}
+                            </div>
+                            <div>
+                                <h5 class="text-xs font-bold text-slate-800">${post.author}</h5>
+                                <span class="text-[9px] text-slate-400 block">${post.date}</span>
+                            </div>
+                        </div>
+                        <button onclick="deletePost(${index})" class="text-slate-300 hover:text-red-500">
+                            <i class="fa-solid fa-trash-can text-xs"></i>
+                        </button>
+                    </div>
+                    <p class="text-xs text-slate-500 leading-relaxed bg-slate-50/50 p-3 rounded-xl border border-slate-50">${post.content}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function postDiscussion(e) {
+            e.preventDefault();
+            const author = document.getElementById("forum-author").value;
+            const content = document.getElementById("forum-content").value;
+            discussions.unshift({ id: Date.now(), author, date: "June 25, 2026", content });
+            saveToLocalStorage();
+            renderDiscussions();
+            showToast("Discussion post active!");
+            e.target.reset();
+        }
+
+        function deletePost(index) {
+            discussions.splice(index, 1);
+            saveToLocalStorage();
+            renderDiscussions();
+            showToast("Forum post deleted.");
+        }
+
+        // 5. OUTLINES
+        function renderOutlines() {
+            const container = document.getElementById("outlines-accordion");
+            container.innerHTML = "";
+            courseOutlines.forEach((out, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden";
+                card.innerHTML = `
+                    <div class="p-4 bg-slate-50 border-b border-slate-100 flex justify-between items-center cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden')">
+                        <h4 class="text-xs font-bold text-slate-800">${out.title}</h4>
+                        <i class="fa-solid fa-chevron-down text-slate-400 text-[10px]"></i>
+                    </div>
+                    <div class="p-4 space-y-2 text-xs text-slate-500">
+                        <p>${out.desc}</p>
+                        <div class="pt-2 border-t border-slate-50 flex space-x-4 text-[11px] text-[#055a3a] font-bold">
+                            <button onclick="showToast('Syllabus file prepared for download')">📄 Download Handout</button>
+                            <button onclick="showToast('Active worksheet guidelines loaded')">🔗 Lesson Activities</button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // 6. SCHEDULE
+        function renderSchedule() {
+            const grid = document.getElementById("scheduler-days-grid");
+            grid.innerHTML = "";
+            for (let d = 1; d <= 30; d++) {
+                const day = document.createElement("div");
+                day.className = `p-2 min-h-12 border border-slate-50 text-right text-xs rounded-lg ${
+                    d === 25 ? 'bg-emerald-50 text-[#055a3a] font-black border-emerald-300' : 'bg-white text-slate-500'
+                }`;
+                day.innerHTML = `<span>${d}</span>`;
+                grid.appendChild(day);
+            }
+
+            const list = document.getElementById("scheduler-checklist");
+            list.innerHTML = `
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between text-xs">
+                    <div>
+                        <span class="text-[9px] text-emerald-600 font-bold block uppercase">Synchronous Meet</span>
+                        <strong>Intro to Digital Safety</strong>
+                    </div>
+                    <span class="text-slate-400">June 25</span>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-100 flex justify-between text-xs">
+                    <div>
+                        <span class="text-[9px] text-blue-600 font-bold block uppercase">Asynchronous Work</span>
+                        <strong>Module 1 Worksheet Handout</strong>
+                    </div>
+                    <span class="text-slate-400">June 29</span>
+                </div>
+            `;
+        }
+
+        // 8. CLASS PHOTOS GALLERY
+        function renderPhotos() {
+            const grid = document.getElementById("photos-grid");
+            grid.innerHTML = "";
+            classPhotos.forEach((photo, index) => {
+                const card = document.createElement("div");
+                card.className = "bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden group";
+                card.innerHTML = `
+                    <div class="h-32 ${photo.placeholderColor} flex items-center justify-center text-white relative">
+                        <i class="fa-solid fa-images text-2xl opacity-40 group-hover:scale-110 transition-all duration-300"></i>
+                    </div>
+                    <div class="p-4 space-y-1">
+                        <span class="text-[9px] text-slate-400 font-bold uppercase">${photo.date}</span>
+                        <h5 class="text-xs font-bold text-slate-800 leading-tight">${photo.title}</h5>
+                        <div class="flex justify-end pt-2 border-t border-slate-50 mt-2">
+                            <button onclick="deletePhoto(${index})" class="text-slate-300 hover:text-red-500 text-xs">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function triggerPhotoUpload() {
+            const title = prompt("Enter Photo Caption Title:");
+            if(!title) return;
+            const colors = ["bg-emerald-600", "bg-amber-500", "bg-blue-600", "bg-indigo-600", "bg-pink-600"];
+            const placeholderColor = colors[Math.floor(Math.random() * colors.length)];
+            classPhotos.unshift({ title, date: "June 25, 2026", placeholderColor });
+            saveToLocalStorage();
+            renderPhotos();
+            showToast("Snapshot pinned to portal gallery.");
+        }
+
+        function deletePhoto(index) {
+            classPhotos.splice(index, 1);
+            saveToLocalStorage();
+            renderPhotos();
+            showToast("Photo entry removed.");
+        }
+
+        // SETTINGS
+        function toggleSettingsModal() {
+            const modal = document.getElementById("settings-modal");
+            modal.classList.toggle("hidden");
+            if(!modal.classList.contains("hidden")) {
+                document.getElementById("settings-gmeet-link").value = localStorage.getItem("dc_meet_link") || "https://meet.google.com";
+            }
+        }
+
+        function saveSettings() {
+            const meet = document.getElementById("settings-gmeet-link").value;
+            localStorage.setItem("dc_meet_link", meet);
+            toggleSettingsModal();
+            showToast("Course Lobby link successfully updated.");
+        }
+
+        // CANVAS EMBED LOGIC
+        function openEmbedModal() {
+            updateEmbedSnippet();
+            document.getElementById("embed-modal").classList.remove("hidden");
+        }
+
+        function closeEmbedModal() {
+            document.getElementById("embed-modal").classList.add("hidden");
+        }
+
+        function updateEmbedSnippet() {
+            const box = document.getElementById("embed-code-box");
+            const currentURL = window.location.href;
+            box.value = `<iframe src="${currentURL}" width="100%" height="800px" style="border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);" allowfullscreen></iframe>`;
+        }
+
+        function copyEmbedCode() {
+            const box = document.getElementById("embed-code-box");
+            box.select();
+            document.execCommand('copy');
+            showToast("Integration embed code copied!");
+        }
+    </script>
+</body>
+</html>
